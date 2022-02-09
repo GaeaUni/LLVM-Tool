@@ -286,7 +286,6 @@ int main(int argc, const char **argv) {
     DiffStorage::shared().parse(diffPath);
     auto files = OptionsParser.get().getCompilations().getAllFiles();
     ClangTool Tool(OptionsParser.get().getCompilations(), files);
-
     auto matcherMethodDecl = objcMethodDecl(hasAncestor(objcImplementationDecl().bind(objcClass))).bind(selector);
 
     auto matcherCallDecl = objcMethodDecl(hasAncestor(objcImplementationDecl().bind(objcClass)),

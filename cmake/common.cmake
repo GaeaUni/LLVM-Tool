@@ -5,7 +5,6 @@ list(APPEND LLVM_INCLUDE_DIRECTORIES
     ${TOOL_ROOT_PATH}/llvm-project/llvm/include
 )
 
-MESSAGE("haha ${CMAKE_CURRENT_BINARY_DIR}")
 if(CMAKE_BUILD_TYPE MATCHES Release)
     list(APPEND LLVM_INCLUDE_DIRECTORIES
         ${TOOL_ROOT_PATH}/build/llvm/Release/tools/clang/include
@@ -19,6 +18,10 @@ else()
     )
     link_directories(${TOOL_ROOT_PATH}/build/llvm/Debug/lib)
 endif()
+
+list(APPEND COMMAND_FLAGS
+    "-fvisibility-inlines-hidden"
+)
 
 set(LLVM_LINK_LIBRARIES
     clangTooling

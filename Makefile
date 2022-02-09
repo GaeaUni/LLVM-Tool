@@ -1,3 +1,7 @@
+bootstrap:
+	make gen-tooling-debug
+	make build-tooling-debug
+
 gen-llvm-debug:
 	rm -rf build/llvm/Debug/CMakeCache.txt;
 	cmake -S llvm-project/llvm -Bbuild/llvm/Debug -G Ninja -DLLVM_ENABLE_PROJECTS="clang;libcxx;libcxxabi;clang-tools-extra";

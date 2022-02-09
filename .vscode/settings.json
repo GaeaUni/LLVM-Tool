@@ -10,4 +10,5 @@
     },
     "editor.formatOnSave": true,
     "cmake.sourceDirectory": "${workspaceFolder}/llvm-project/llvm",
+    "makefile.configurationCachePath": "build/configurationCache.log",
 }

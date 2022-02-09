@@ -1,4 +1,6 @@
 bootstrap:
+	brew install pre-commit
+	pre-commit install
 	make gen-tooling-debug
 	make build-tooling-debug
 

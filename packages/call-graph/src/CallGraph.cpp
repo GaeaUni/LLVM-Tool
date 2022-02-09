@@ -197,11 +197,11 @@ class CallStorage {
         }
 
         // TODO: 分析protocol的调用方式
-        auto ps = call->getReceiverInterface()->protocols();
-        for (auto &p : ps) {
-            auto protocolName = p->getName().str();
-
-            cout << protocolName;
+        if (auto i = call->getReceiverInterface()) {
+            for (auto &p : i->protocols()) {
+                auto protocolName = p->getName().str();
+                cout << protocolName;
+            }
         }
     }
 
@@ -286,6 +286,7 @@ int main(int argc, const char **argv) {
     DiffStorage::shared().parse(diffPath);
     auto files = OptionsParser.get().getCompilations().getAllFiles();
     ClangTool Tool(OptionsParser.get().getCompilations(), files);
+
     auto matcherMethodDecl = objcMethodDecl(hasAncestor(objcImplementationDecl().bind(objcClass))).bind(selector);
 
     auto matcherCallDecl = objcMethodDecl(hasAncestor(objcImplementationDecl().bind(objcClass)),

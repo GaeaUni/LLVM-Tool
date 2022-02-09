@@ -2,8 +2,10 @@
     "recommendations": [
         "ms-vscode.cpptools",
         "ms-vscode.cpptools-extension-pack",
-        "twxs.cmake",
-        "ms-vscode.cmake-tools",
-        "vadimcn.vscode-lldb"
+        "vadimcn.vscode-lldb",
+        "ms-python.vscode-pylance",
+        "ms-python.python",
+        "surajbarkale.ninja",
+        "ms-vscode.makefile-tools"
     ]
 }

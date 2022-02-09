@@ -1,0 +1,24 @@
+# Check https://clang.llvm.org/docs/ClangFormatStyleOptions.html for full option list
+
+---
+Language: Cpp
+BasedOnStyle: Google
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+ColumnLimit: 120
+IndentWidth: 4
+SpacesInContainerLiterals: false
+TabWidth: 4
+AccessModifierOffset: -3
+---
+Language: ObjC
+BasedOnStyle: Google
+AllowShortFunctionsOnASingleLine: None
+AllowShortIfStatementsOnASingleLine: Never
+AllowShortLoopsOnASingleLine: false
+ColumnLimit: 120
+IndentWidth: 4
+SpacesInContainerLiterals: false
+TabWidth: 4
+AccessModifierOffset: -3

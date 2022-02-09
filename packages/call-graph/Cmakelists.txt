@@ -1,0 +1,31 @@
+cmake_minimum_required(VERSION 3.20)
+project(call-graph)
+set(LLVM_LINK_COMPONENTS
+  Support
+)
+set(ROOT_LLVM ${CMAKE_CURRENT_SOURCE_DIR}/../../llvm-project)
+
+list(APPEND CMAKE_MODULE_PATH ${ROOT_LLVM}/llvm/cmake/modules)
+include(${ROOT_LLVM}/llvm/cmake/modules/AddLLVM.cmake)
+include(${ROOT_LLVM}/clang/cmake/modules/AddClang.cmake)
+include(${ROOT_LLVM}/../cmake/common.cmake)
+
+add_clang_executable(${CMAKE_PROJECT_NAME}
+  CallGraph.cpp
+)
+
+target_link_libraries(${CMAKE_PROJECT_NAME}
+  PRIVATE
+  ${LLVM_LINK_LIBRARIES}
+)
+
+target_include_directories(${CMAKE_PROJECT_NAME}
+  PUBLIC
+  ${LLVM_INCLUDE_DIRECTORIES}
+)
+
+if (UNIX)
+   set(CLANGXX__LING_OR_COPY create_symlink)
+else()
+   set(CLANGXX_LINK_OR_COPY copy)
+endif()

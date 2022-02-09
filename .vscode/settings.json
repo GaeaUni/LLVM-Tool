@@ -1,0 +1,13 @@
+{
+    "makefile.extensionOutputFolder": "./build",
+    "C_Cpp.errorSquiggles": "Enabled",
+    "C_Cpp.autoAddFileAssociations": false,
+    "search.exclude": {
+        "**/build": true
+    },
+    "[cpp]": {
+        "editor.defaultFormatter": "ms-vscode.cpptools",
+    },
+    "editor.formatOnSave": true,
+    "cmake.sourceDirectory": "${workspaceFolder}/llvm-project/llvm",
+}

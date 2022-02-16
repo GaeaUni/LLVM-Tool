@@ -1,5 +1,7 @@
 
 import graphviz
+
+
 class DrawCall:
     def __init__(self) -> None:
         self.classGraphs = dict()
@@ -27,11 +29,11 @@ class DrawCall:
                 self.classGraphs[callerName] = classGraph
 
             if caller not in self.nodes:
-                classGraph.node(caller,callerSelector)
+                classGraph.node(caller, callerSelector)
                 self.nodes.add(caller)
             # classGraph.edge(caller, node)
             # 他大爷的，这里graphviz有点bug，需要前置声明
-            self.edges.append((caller,node))
+            self.edges.append((caller, node))
             self.scanCall(caller, callMap)
         return
 
@@ -55,7 +57,3 @@ class DrawCall:
             (s, e) = edge
             g.edge(s, e)
         return g
-
-
-
-

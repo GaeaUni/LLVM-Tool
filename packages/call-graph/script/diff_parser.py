@@ -2,12 +2,15 @@ import subprocess
 import re
 import os
 import json
+
+
 class DiffParser:
     def __init__(self) -> None:
         pass
 
-    def parser(self, commitHash1: str, commitHash2: str, path = os.getcwd()):
-        diffString: str = subprocess.run(['sh','diff_detail.sh', commitHash1, commitHash2, path], stdout=subprocess.PIPE, encoding='utf-8').stdout
+    def parser(self, commitHash1: str, commitHash2: str, path=os.getcwd()):
+        diffString: str = subprocess.run(
+            ['sh', 'diff_detail.sh', commitHash1, commitHash2, path], stdout=subprocess.PIPE, encoding='utf-8').stdout
         reg = re.compile("(?<=diff --git )[\s\S]+?(?=\ndiff --git |$)")
         diffs = reg.findall(diffString)
         jsonObj = {}
@@ -18,12 +21,14 @@ class DiffParser:
                 self.appendJson(jsonObj, segments, fileName)
         text = json.dumps(jsonObj, indent=4, sort_keys=True)
         return text
+
     def appendJson(self, jsonObj, segments, fileName):
         arr = []
         for segment in segments:
-            arr.append({"startLine" : segment[0], "endLine" : segment[1]})
+            arr.append({"startLine": segment[0], "endLine": segment[1]})
         if len(arr) > 0:
             jsonObj[fileName] = arr
+
     def diff2LineNumbers(self, diff: str):
         tokens = self.getDiffTokens(diff)
         i = 0
@@ -53,7 +58,6 @@ class DiffParser:
                 i += 1
         return segments
 
-
     def getDiffFileName(self, diff: str, path: str):
         result = re.match("^a(\S+)", diff)
         filePath = path + result.group(1)
@@ -66,5 +70,5 @@ class DiffParser:
             result = re.match("^([+-]|\s)\s*?(\d+)?\s+(\d+)?:", line)
             if not result:
                 continue
-            tokens.append((result.group(1),result.group(2),result.group(3)))
+            tokens.append((result.group(1), result.group(2), result.group(3)))
         return tokens

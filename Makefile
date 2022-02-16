@@ -1,4 +1,6 @@
 bootstrap:
+	brew install ninja
+	brew install cmake
 	brew install pre-commit
 	pre-commit install
 	make gen-tooling-debug

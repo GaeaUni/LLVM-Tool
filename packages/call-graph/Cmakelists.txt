@@ -14,6 +14,10 @@ add_clang_executable(${CMAKE_PROJECT_NAME}
   src/CallGraph.cpp
 )
 
+set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES
+  RUNTIME_OUTPUT_DIRECTORY "${PROJECT_SOURCE_DIR}/bin"
+)
+
 target_link_libraries(${CMAKE_PROJECT_NAME} PRIVATE
   ${LLVM_LINK_LIBRARIES}
 )
@@ -30,6 +34,7 @@ target_include_directories(${CMAKE_PROJECT_NAME}
   PRIVATE
   ${LLVM_INCLUDE_DIRECTORIES}
 )
+
 
 if (UNIX)
    set(CLANGXX__LING_OR_COPY create_symlink)

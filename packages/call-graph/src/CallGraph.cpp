@@ -48,7 +48,12 @@ class DiffStorage {
         ss << diffFile.rdbuf();
         string content = ss.str();
         Expected<Value> diffJson = json::parse(content);
+        if (!diffJson) {
+            llvm::errs() << "Failed to parse diff file: " << diffJson.takeError() << "\n";
+            return;
+        }
         auto root = diffJson->getAsObject();
+
         for (auto i = root->begin(); i != root->end(); i++) {
             auto file = i->getFirst().str();
             auto diffs = i->getSecond().getAsArray();
@@ -281,11 +286,16 @@ using namespace CallGraph;
 int main(int argc, const char **argv) {
     static cl::OptionCategory CallGraphToolCategory("CallGraphToolCategory options");
     auto OptionsParser = CommonOptionsParser::create(argc, argv, CallGraphToolCategory);
-    auto diffPath = OptionsParser.get().getSourcePathList().front();
+    if (!OptionsParser) {
+        llvm::errs() << OptionsParser.takeError();
+        return 1;
+    }
+    CommonOptionsParser &OP = OptionsParser.get();
+    auto diffPath = OP.getSourcePathList().front();
 
     DiffStorage::shared().parse(diffPath);
-    auto files = OptionsParser.get().getCompilations().getAllFiles();
-    ClangTool Tool(OptionsParser.get().getCompilations(), files);
+    auto files = OP.getCompilations().getAllFiles();
+    ClangTool Tool(OP.getCompilations(), files);
 
     auto matcherMethodDecl = objcMethodDecl(hasAncestor(objcImplementationDecl().bind(objcClass))).bind(selector);
 

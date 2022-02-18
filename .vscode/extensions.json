@@ -6,6 +6,7 @@
         "ms-python.vscode-pylance",
         "ms-python.python",
         "surajbarkale.ninja",
-        "ms-vscode.makefile-tools"
+        "ms-vscode.makefile-tools",
+        "tomoki1207.pdf"
     ]
 }

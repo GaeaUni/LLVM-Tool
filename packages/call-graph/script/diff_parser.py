@@ -2,6 +2,7 @@ import subprocess
 import re
 import os
 import json
+import sys
 
 
 class DiffParser:
@@ -9,8 +10,9 @@ class DiffParser:
         pass
 
     def parser(self, commitHash1: str, commitHash2: str, path=os.getcwd()):
+        shell = "{0}/diff_detail.sh".format(sys.path[0])
         diffString: str = subprocess.run(
-            ['sh', 'diff_detail.sh', commitHash1, commitHash2, path], stdout=subprocess.PIPE, encoding='utf-8').stdout
+            ['sh', shell, commitHash1, commitHash2, path], stdout=subprocess.PIPE, encoding='utf-8').stdout
         reg = re.compile("(?<=diff --git )[\s\S]+?(?=\ndiff --git |$)")
         diffs = reg.findall(diffString)
         jsonObj = {}

@@ -9,7 +9,7 @@
             "request": "launch",
             "name": "CallGraph",
             "preLaunchTask": "CallGraph",
-            "program": "${workspaceFolder}/build/Tool/Debug/call-graph",
+            "program": "${workspaceFolder}/packages/call-graph/bin/call-graph",
             "args": [],
             "cwd": "${workspaceFolder}"
         }

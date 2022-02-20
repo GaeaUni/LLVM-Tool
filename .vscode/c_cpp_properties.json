@@ -3,7 +3,7 @@
         {
             "name": "Mac",
             "includePath": [
-                "${workspaceFolder}/**",
+                "${workspaceFolder}/packages/call-graph/src/**",
                 "${workspaceFolder}/llvm-project/clang/include",
                 "${workspaceFolder}/llvm-project/llvm/include",
                 "${workspaceFolder}/build/llvm/Debug/tools/clang/include",

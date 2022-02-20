@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import argparse
+from preprocess_compile_json import PreProcessor
 import os
 import json
 from diff_parser import DiffParser
@@ -13,7 +14,7 @@ workPath = sys.path[0]
 def runClangTooling(diffPath, compileJsonPath):
     cmd = "{0}/../bin/call-graph -p {1} {2}".format(
         workPath, compileJsonPath, diffPath)
-    os.system(cmd)
+    assert os.system(cmd) == 0
 
 
 def dumpDiffJson(path, commit1, commit2):
@@ -36,11 +37,18 @@ def main():
     commit_hashs = args.commit_hashs or ["", ""]
     compile_json_path = args.compile_json_path
 
+    compile_json_path = "/Volumes/T7/company/TestClang/compile_commands.json"
+    project_path = "/Volumes/T7/company/TestClang"
+
+    out_put_compile_json_path = os.path.realpath("{0}/../tmp/compile_commands.json".format(
+        workPath))
+    preprocessor = PreProcessor(compile_json_path, out_put_compile_json_path)
+    preprocessor.run()
     print("参数为 {0}".format(args))
     print("1.dump出diff文件")
     diffsPath = dumpDiffJson(project_path, commit_hashs[0], commit_hashs[1])
     print("2.调用clang产生init_nodes和call_map")
-    runClangTooling(diffsPath, compile_json_path)
+    runClangTooling(diffsPath, out_put_compile_json_path)
     print("3.解析init_nodes和call_map产生dot源文件,并且显示")
 
     initNodes = json.loads(

@@ -11,7 +11,15 @@ include(${ROOT_LLVM}/clang/cmake/modules/AddClang.cmake)
 include(${ROOT_LLVM}/../cmake/common.cmake)
 
 add_clang_executable(${CMAKE_PROJECT_NAME}
-  src/CallGraph.cpp
+  src/main.cpp
+  src/CallExprCallback.cpp
+  src/CallStorage.cpp
+  src/DiffStorage.cpp
+  src/ImplementCallback.cpp
+  src/ImplementProtocolCallback.cpp
+  src/ImplementProtocolStorage.cpp
+  src/MethodDiffQueryCallback.cpp
+  src/Utils.cpp
 )
 
 set_target_properties(${CMAKE_PROJECT_NAME} PROPERTIES

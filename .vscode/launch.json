@@ -10,7 +10,11 @@
             "name": "CallGraph",
             "preLaunchTask": "CallGraph",
             "program": "${workspaceFolder}/packages/call-graph/bin/call-graph",
-            "args": [],
+            "args": [
+                "-p",
+                "/Volumes/T7/company/LLVM-Tool/packages/call-graph/tmp/compile_commands.json",
+                "/Volumes/T7/company/LLVM-Tool/packages/call-graph/tmp/diff.json"
+            ],
             "cwd": "${workspaceFolder}"
         }
     ]

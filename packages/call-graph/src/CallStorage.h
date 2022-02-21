@@ -10,7 +10,8 @@ using namespace std;
 
 class CallStorage {
  public:
-    void addOneCall(const ObjCImplementationDecl *objcClass, const ObjCMethodDecl *method, const ObjCMessageExpr *call);
+    void addOneCall(const ObjCImplementationDecl *objcClass, const ObjCMethodDecl *method, const ObjCMessageExpr *call,
+                    const SourceManager *manager);
 
     void printAll();
 

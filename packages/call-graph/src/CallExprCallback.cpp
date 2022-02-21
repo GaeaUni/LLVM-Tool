@@ -10,7 +10,7 @@ void CallExprCallback::run(const MatchFinder::MatchResult &Result) {
     }
     auto method = Result.Nodes.getNodeAs<ObjCMethodDecl>(CallGraph::selector);
     auto methodClass = Result.Nodes.getNodeAs<ObjCImplementationDecl>(CallGraph::objcClass);
-    CallStorage::shared().addOneCall(methodClass, method, oneCall);
+    CallStorage::shared().addOneCall(methodClass, method, oneCall, Result.SourceManager);
 }
 
 bool CallExprCallback::isSystemCall(const SourceManager *manager, const ObjCMessageExpr *call) {

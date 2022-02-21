@@ -15,12 +15,17 @@ class ImplementProtocolStorage {
 
     void addProtocol(string implement, string protocol);
 
+    void addMethods(string implement, vector<string> methods);
+
     vector<string> getImplementsFromProtocol(string protocol);
+
+    vector<string> getMethodsFromImplement(string implement);
 
     void dump();
 
  private:
     map<string, set<string>> implement2Protocols;
+    map<string, set<string>> implement2Methods;
     ImplementProtocolStorage(){};
     ~ImplementProtocolStorage(){};
     ImplementProtocolStorage(const ImplementProtocolStorage &) = delete;

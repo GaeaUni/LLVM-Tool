@@ -7,4 +7,9 @@ void ImplementProtocolCallback::run(const ObjCImplementationDecl *objcClass) {
     for (auto protocol : objcClass->getClassInterface()->protocols()) {
         ImplementProtocolStorage::shared().addProtocol(name, protocol->getNameAsString());
     }
+    vector<string> methods;
+    for (auto method : objcClass->methods()) {
+        methods.push_back(method->getSelector().getAsString());
+    }
+    ImplementProtocolStorage::shared().addMethods(name, methods);
 }

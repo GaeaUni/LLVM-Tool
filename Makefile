@@ -11,7 +11,7 @@ gen-llvm-debug:
 	cmake -S llvm-project/llvm -Bbuild/llvm/Debug -G Ninja -DLLVM_ENABLE_PROJECTS="clang;libcxx;libcxxabi;clang-tools-extra";
 
 gen-tooling-debug: build-llvm-debug
-	rm -rf build/Tool/Debug/CMakeCache.txt;
+	rm -rf build/Tool/Debug/CMakeCache.txt
 	cmake -GNinja -S packages/call-graph -Bbuild/Tool/Debug -DCMAKE_BUILD_TYPE=Debug
 
 clean-llvm-debug:

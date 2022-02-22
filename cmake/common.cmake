@@ -5,7 +5,7 @@ list(APPEND LLVM_INCLUDE_DIRECTORIES
     ${TOOL_ROOT_PATH}/llvm-project/llvm/include
 )
 
-if(CMAKE_BUILD_TYPE MATCHES Release)
+if(USE_LLVM_TYPE MATCHES Release)
     list(APPEND LLVM_INCLUDE_DIRECTORIES
         ${TOOL_ROOT_PATH}/build/llvm/Release/tools/clang/include
         ${TOOL_ROOT_PATH}/build/llvm/Release/include

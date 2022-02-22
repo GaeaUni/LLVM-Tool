@@ -6,8 +6,8 @@
                 "${workspaceFolder}/packages/call-graph/src/**",
                 "${workspaceFolder}/llvm-project/clang/include",
                 "${workspaceFolder}/llvm-project/llvm/include",
-                "${workspaceFolder}/build/llvm/Debug/tools/clang/include",
-                "${workspaceFolder}/build/llvm/Debug/include"
+                "${workspaceFolder}/build/llvm/Release/tools/clang/include",
+                "${workspaceFolder}/build/llvm/Release/include"
             ],
             "defines": [],
             "macFrameworkPath": [

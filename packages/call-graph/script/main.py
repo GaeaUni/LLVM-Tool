@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 import argparse
+from dependcy_processor import DependecyProcessor
 from preprocess_compile_json import PreProcessor
 import os
 import json
@@ -37,8 +38,9 @@ def main():
     commit_hashs = args.commit_hashs or ["", ""]
     compile_json_path = args.compile_json_path
 
-    compile_json_path = "/Volumes/T7/company/TestClang/compile_commands.json"
-    project_path = "/Volumes/T7/company/TestClang"
+    compile_json_path = "{0}/../tmp/compile_commands.json".format(
+        workPath)
+    project_path = "/Volumes/T7/company/hammer-workspace/QMapBusKit"
 
     out_put_compile_json_path = os.path.realpath("{0}/../tmp/compile_commands.json".format(
         workPath))
@@ -47,9 +49,15 @@ def main():
     print("参数为 {0}".format(args))
     print("1.dump出diff文件")
     diffsPath = dumpDiffJson(project_path, commit_hashs[0], commit_hashs[1])
-    print("2.调用clang产生init_nodes和call_map")
+    print("2.估算call-graph")
+    dirty_files = json.loads(open(diffsPath).read()).keys()
+    dependency_processor = DependecyProcessor(
+        out_put_compile_json_path, dirty_files)
+    dependency_processor.process()
+    dependency_processor.render()
+    print("3.调用clang产生init_nodes和call_map")
     runClangTooling(diffsPath, out_put_compile_json_path)
-    print("3.解析init_nodes和call_map产生dot源文件,并且显示")
+    print("4.解析init_nodes和call_map产生dot源文件,并且显示")
 
     initNodes = json.loads(
         open("{0}/../tmp/init_nodes.json".format(workPath)).read())

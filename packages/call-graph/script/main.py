@@ -41,6 +41,8 @@ def main():
     compile_json_path = "{0}/../tmp/compile_commands.json".format(
         workPath)
     project_path = "/Volumes/T7/company/hammer-workspace/QMapBusKit"
+    # compile_json_path = "/Volumes/T7/company/TestClang/compile_commands.json"
+    # project_path = "/Volumes/T7/company/TestClang"
 
     out_put_compile_json_path = os.path.realpath("{0}/../tmp/compile_commands.json".format(
         workPath))
@@ -55,18 +57,18 @@ def main():
         out_put_compile_json_path, dirty_files)
     dependency_processor.process()
     dependency_processor.render()
-    print("3.调用clang产生init_nodes和call_map")
-    runClangTooling(diffsPath, out_put_compile_json_path)
-    print("4.解析init_nodes和call_map产生dot源文件,并且显示")
+    # print("3.调用clang产生init_nodes和call_map")
+    # runClangTooling(diffsPath, out_put_compile_json_path)
+    # print("4.解析init_nodes和call_map产生dot源文件,并且显示")
 
-    initNodes = json.loads(
-        open("{0}/../tmp/init_nodes.json".format(workPath)).read())
-    callMap = json.loads(
-        open("{0}/../tmp/call_map.json".format(workPath)).read())
-    drawCall = DrawCall()
-    graph = drawCall.generateGraph(initNodes, callMap)
-    print(graph.source)
-    graph.view(directory="{0}/../tmp".format(workPath))
+    # initNodes = json.loads(
+    #     open("{0}/../tmp/init_nodes.json".format(workPath)).read())
+    # callMap = json.loads(
+    #     open("{0}/../tmp/call_map.json".format(workPath)).read())
+    # drawCall = DrawCall()
+    # graph = drawCall.generateGraph(initNodes, callMap)
+    # print(graph.source)
+    # graph.view(directory="{0}/../tmp".format(workPath))
 
 
 if __name__ == "__main__":

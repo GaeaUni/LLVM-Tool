@@ -144,18 +144,18 @@ class DependecyProcessor:
         pat = re.compile(
             "@property\s{0}({1})\s".format(descriptor, type))
         properties = pat.finditer(content)
-        dependcyInterfaces = set()
-        dependcyProtocols = set()
+        dependcy_interfaces = set()
+        dependcy_protocols = set()
         for match in properties:
             className = match.group(2)
             protocolName = match.group(4)
             if not className == "id":
-                dependcyInterfaces.add(className)
+                dependcy_interfaces.add(className)
             if protocolName:
-                dependcyProtocols.add(protocolName)
-        dependcyInterfaces = self.filter_system_object(dependcyInterfaces)
-        dependcyProtocols = self.filter_system_object(dependcyProtocols)
-        return dependcyInterfaces, dependcyProtocols
+                dependcy_protocols.add(protocolName)
+        dependcy_interfaces = self.filter_system_object(dependcy_interfaces)
+        dependcy_protocols = self.filter_system_object(dependcy_protocols)
+        return dependcy_interfaces, dependcy_protocols
 
     def get_objc_parameter_dependency(self, content):
         type = "(([A-Z][a-zA-Z0-9_]+)|id)(<[a-zA-Z0-9_]+>)?\s*\*?"
@@ -163,18 +163,18 @@ class DependecyProcessor:
         pat = re.compile(parameter)
         parameters = pat.finditer(content)
 
-        dependcyInterfaces = set()
-        dependcyProtocols = set()
+        dependcy_interfaces = set()
+        dependcy_protocols = set()
         for match in parameters:
             className = match.group(2)
             protocolName = match.group(4)
             if not className == "id":
-                dependcyInterfaces.add(className)
+                dependcy_interfaces.add(className)
             if protocolName:
-                dependcyProtocols.add(protocolName)
-        dependcyInterfaces = self.filter_system_object(dependcyInterfaces)
-        dependcyProtocols = self.filter_system_object(dependcyProtocols)
-        return dependcyInterfaces, dependcyProtocols
+                dependcy_protocols.add(protocolName)
+        dependcy_interfaces = self.filter_system_object(dependcy_interfaces)
+        dependcy_protocols = self.filter_system_object(dependcy_protocols)
+        return dependcy_interfaces, dependcy_protocols
 
     def get_objc_call_dependency(self, content):
         classId = "([A-Z][a-zA-Z0-9_]+)"
@@ -195,23 +195,24 @@ class DependecyProcessor:
         pat = re.compile(
             "{0}{1}{2}".format(interface, super, protocol))
         interfaces = pat.finditer(content)
-        implementedInterfaces = []
-        implementedProtocols = []
-        dependcyInterfaces = []
+        implemented_interfaces = []
+        implemented_protocols = []
+        dependcy_interfaces = []
         for match in interfaces:
             interfaceName = match.group(1)
             superName = match.group(2)
             protocolNames = match.group(3)
 
-            dependcyInterfaces.append(superName)
-            implementedInterfaces.append(interfaceName)
+            dependcy_interfaces.append(superName)
+            implemented_interfaces.append(interfaceName)
             if protocolNames:
-                implementedProtocols.extend(protocolNames.split(","))
-        dependcyInterfaces = self.filter_system_object(dependcyInterfaces)
-        implementedProtocols = self.filter_system_object(implementedProtocols)
-        implementedInterfaces = self.filter_system_object(
-            implementedInterfaces)
-        return implementedInterfaces, implementedProtocols, dependcyInterfaces
+                implemented_protocols.extend(protocolNames.split(","))
+        dependcy_interfaces = self.filter_system_object(dependcy_interfaces)
+        implemented_protocols = self.filter_system_object(
+            implemented_protocols)
+        implemented_interfaces = self.filter_system_object(
+            implemented_interfaces)
+        return implemented_interfaces, implemented_protocols, dependcy_interfaces
 
     def filter_system_object(self, object_names: Set[str]):
         result = filter(lambda x: not x.startswith(

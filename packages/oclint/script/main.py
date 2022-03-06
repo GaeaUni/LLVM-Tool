@@ -1,10 +1,12 @@
 
+import installer
+from linter import CommitFilesLinter
 import argparse
 from compile_json_generator import CompileJsonGenerator, compile_commands_json_path
 from commit_file_parser import CommitFileParser
 import os
 import json
-from linter import CommitFilesLinter
+import sys
 
 
 def need_regenerate_compile_commands_json(commit_files):
@@ -29,10 +31,9 @@ def main():
     args = parser.parse_args()
     project_path = args.project_path
     main_project_path = args.main_project_path
-
     if not project_path:
-        # 先用自己的项目路径debug
-        project_path = "/Volumes/T7/company/hammer-workspace/QMapBusKit"
+        # 获取entry_point的路径
+        project_path = os.getcwd()
     if not main_project_path:
         main_project_path = os.path.dirname(project_path)
     project_name = project_path.split("/")[-1]
@@ -44,8 +45,16 @@ def main():
     else:
         print("delete files not commit")
         generator.delete_clean_files(commit_files)
+
+    path = "{0}/../../call-graph/script".format(sys.path[0])
+    sys.path.append(os.path.realpath(path))
+    from diff_parser import DiffParser
+    diff_parser = DiffParser()
+    diff_json = json.loads(diff_parser.process(
+        "git diff --cached", project_path))
+
     linter = CommitFilesLinter()
-    linter.process()
+    linter.process(diff_json)
 
 
 if __name__ == "__main__":

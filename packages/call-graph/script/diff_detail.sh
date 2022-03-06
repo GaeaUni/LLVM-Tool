@@ -1,8 +1,5 @@
-if  [ "$3" ] ;then
-    cd $3
-fi
 
-git diff $1 $2 | gawk '
+$1 | gawk '
   match($0,"^@@ -([0-9]+),([0-9]+) [+]([0-9]+),([0-9]+) @@",a){
     left=a[1]
     ll=length(a[2])

@@ -1,0 +1,10 @@
+fail_fast: false
+repos:
+  - repo: local
+    hooks:
+      - id: local-run-pre-commit
+        name: oclint
+        language: system
+        entry: python3 ../TencentMap/devops/packages/oclint/script/main.py
+        pass_filenames: false
+        files: '^.*\.(h|cpp|cc|m|mm)'

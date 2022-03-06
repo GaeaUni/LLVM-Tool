@@ -9,10 +9,10 @@ class DiffParser:
     def __init__(self) -> None:
         pass
 
-    def parser(self, commitHash1: str, commitHash2: str, path=os.getcwd()):
-        shell = "{0}/diff_detail.sh".format(sys.path[0])
+    def process(self, cmd, path):
+        shell = "{0}/diff_detail.sh".format(os.path.dirname(__file__))
         diffString: str = subprocess.run(
-            ['sh', shell, commitHash1, commitHash2, path], stdout=subprocess.PIPE, encoding='utf-8').stdout
+            ['sh', shell, cmd], cwd=path, stdout=subprocess.PIPE, encoding='utf-8').stdout
         reg = re.compile("(?<=diff --git )[\s\S]+?(?=\ndiff --git |$)")
         diffs = reg.findall(diffString)
         jsonObj = {}

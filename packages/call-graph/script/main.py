@@ -20,7 +20,8 @@ def runClangTooling(diffPath, compileJsonPath):
 
 def dumpDiffJson(path, commit1, commit2):
     diffParser = DiffParser()
-    diffs = diffParser.parser(commit1, commit2, path)
+    cmd = "git diff {0} {1}".format(commit1, commit2)
+    diffs = diffParser.process(cmd, path)
     diffPath = "{0}/../tmp/diff.json".format(workPath)
     os.makedirs(os.path.dirname(diffPath), exist_ok=True)
     with open(diffPath, 'w') as f:

@@ -13,4 +13,7 @@
     "editor.fontSize": 14,
     "cmake.sourceDirectory": "${workspaceFolder}/llvm-project/llvm",
     "makefile.configurationCachePath": "build/configurationCache.log",
+    "python.analysis.extraPaths": [
+        "./packages/call-graph/script"
+    ],
 }

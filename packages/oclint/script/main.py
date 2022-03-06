@@ -7,6 +7,7 @@ from commit_file_parser import CommitFileParser
 import os
 import json
 import sys
+from diff_parser import DiffParser
 
 
 def need_regenerate_compile_commands_json(commit_files):
@@ -46,9 +47,6 @@ def main():
         print("delete files not commit")
         generator.delete_clean_files(commit_files)
 
-    path = "{0}/../../call-graph/script".format(sys.path[0])
-    sys.path.append(os.path.realpath(path))
-    from diff_parser import DiffParser
     diff_parser = DiffParser()
     diff_json = json.loads(diff_parser.process(
         "git diff --cached", project_path))

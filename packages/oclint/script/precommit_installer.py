@@ -57,9 +57,8 @@ class PrecommitInstaller:
 
 def main():
     installer = PrecommitInstaller()
-    print("start precommit installer {0}".format(os.getcwd()))
     path = os.getcwd()
-    path = "/Volumes/T7/company/hammer-workspace"
+    print("start precommit installer {0}".format(path))
     installer.process(path)
 
 

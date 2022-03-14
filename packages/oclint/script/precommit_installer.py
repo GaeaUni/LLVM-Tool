@@ -14,11 +14,22 @@ class PrecommitInstaller:
 
     def process(self, main_project_path):
         dev_pods = self.find_all_developer_pod_path(main_project_path)
-        self.install_precommit_in_dev_pod(dev_pods)
-        self.install_precommit_config(dev_pods)
+        # self.install_precommit_in_dev_pod(dev_pods)
+        # self.install_precommit_config(dev_pods)
+        self.uninstall_precommit_in_dev_pod(dev_pods)
 
     def install_precommit(self):
         installer.install_brew("pre-commit")
+
+    def uninstall_precommit_in_dev_pod(self, dev_pods):
+        for pod_path in dev_pods:
+            cmd = "pre-commit uninstall"
+            result = subprocess.run(
+                cmd.split(), encoding='utf-8', cwd=pod_path, stdout=subprocess.PIPE).returncode
+            if result != 0:
+                print("pre-commit uninstall failed in {0}".format(pod_path))
+            else:
+                print("pre-commit uninstall success in {0}".format(pod_path))
 
     def install_precommit_in_dev_pod(self, dev_pods):
         for pod_path in dev_pods:
@@ -42,18 +53,38 @@ class PrecommitInstaller:
         #     template = template.replace("{0}", ",".join(dev_pod_paths))
         for path in dev_pod_paths:
             config_path = os.path.join(path, ".pre-commit-config.yaml")
-            cmd = "cp {0} {1}".format(template_path, config_path)
+            cmd = "cp {0} {1}".format(repr(template_path), repr(config_path))
             os.system(cmd)
 
     def find_all_developer_pod_path(self, main_project_path):
         # TODO:考虑devpod不是一个目录的情况
         os.chdir(main_project_path)
         result = os.popen(
-            "find {0} -name '*.podspec' -type f".format(main_project_path)).read()
+            "find {0} -maxdepth 2 -name '*.podspec' -type f ".format(main_project_path)).read()
         result = filter(lambda x: x != "", result.split("\n"))
         result = map(lambda x: os.path.dirname(x), result)
+        result = filter(lambda x: self.is_in_whitelists(x), result)
         return list(result)
 
+    def is_in_whitelists(self, pod_path):
+        pod_name = os.path.basename(pod_path)
+        white_lists = [
+            'QMapUIKit',
+            'QMapRouteSearchKit',
+            'QMapMiddlePlatform',
+            'QMapHippy',
+            'QMapBusKit',
+            'QMapBusiness',
+            'QMapBaseline',
+            'TencentTravelService',
+            'QMapNaviKit',
+            'QMapKit',
+            'QMapBusBusiness',
+            'QMapInfoServiceKit'
+        ]
+        if pod_name not in white_lists:
+            print("pod {0} is not in whitelist".format(pod_name))
+        return pod_name in white_lists
 
 def main():
     installer = PrecommitInstaller()

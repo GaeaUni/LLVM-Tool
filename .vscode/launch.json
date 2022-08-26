@@ -16,6 +16,15 @@
                 "/Volumes/T7/company/LLVM-Tool/packages/call-graph/tmp/diff.json"
             ],
             "cwd": "${workspaceFolder}"
+        },
+        {
+            "type": "lldb",
+            "request": "launch",
+            "name": "lldbDebug",
+            "preLaunchTask": "lldbDebugBuild",
+            "program": "${workspaceFolder}/build/llvm/Debug/bin/lldb",
+            "args": [],
+            "cwd": "${workspaceFolder}"
         }
     ]
 }

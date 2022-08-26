@@ -11,6 +11,15 @@
             },
             "command": "make build-tooling-debug",
             "problemMatcher": []
+        },
+        {
+            "label": "lldbDebugBuild",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "command": "make buiild-lldb-debug",
+            "problemMatcher": []
         }
     ]
 }

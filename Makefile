@@ -7,19 +7,15 @@ bootstrap:
 	make build-tooling-debug
 
 gen-llvm-debug:
-	rm -rf build/llvm/Debug/CMakeCache.txt;
-	cmake -S llvm-project/llvm -Bbuild/llvm/Debug -G Ninja -DLLVM_ENABLE_PROJECTS="clang;libcxx;libcxxabi;clang-tools-extra";
+	cmake -DCMAKE_BUILD_TYPE=Debug -S llvm-project/llvm -Bbuild/llvm/Debug -G Ninja -DLLVM_ENABLE_PROJECTS="clang;lldb;clang-tools-extra" -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi";
 
 gen-llvm-release:
-	rm -rf build/llvm/Release/CMakeCache.txt;
-	cmake -DCMAKE_BUILD_TYPE=Release -S llvm-project/llvm -Bbuild/llvm/Release -G Ninja -DLLVM_ENABLE_PROJECTS="clang;libcxx;libcxxabi;clang-tools-extra";
+	cmake -DCMAKE_BUILD_TYPE=Release -S llvm-project/llvm -Bbuild/llvm/Release -G Ninja -DLLVM_ENABLE_PROJECTS="clang;lldb;clang-tools-extra" -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi";
 
-clean-llvm-debug:
-	cmake --build build/llvm/Debug --target clean
+clean-llvm:
+	rm -rf build;
 
-clean-llvm-release:
-	cmake --build build/llvm/Release --target clean
-
+# clang Tooling
 build-llvm-debug: gen-llvm-debug
 	cmake --build build/llvm/Debug --target clangTooling --verbose
 
@@ -33,4 +29,12 @@ gen-tooling-debug: build-llvm-release
 build-tooling-debug:
 	cmake --build build/Tool/Debug --target call-graph --verbose
 
+# lldb
+buiild-lldb-debug:
+	if [ ! -d build/llvm/Debug ]; then make gen-llvm-debug;fi
+	cmake --build build/llvm/Debug --target lldb --verbose
+
+build-lldb-release:
+	if [ ! -d build/llvm/Debug ]; then make gen-llvm-release;fi
+	cmake --build build/llvm/Release --target lldb --verbose
 

@@ -7,10 +7,10 @@ bootstrap:
 	make build-tooling-debug
 
 gen-llvm-debug:
-	cmake -DCMAKE_BUILD_TYPE=Debug -S llvm-project/llvm -Bbuild/llvm/Debug -G Ninja -DLLVM_ENABLE_PROJECTS="clang;lldb;clang-tools-extra" -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi";
+	cmake -DCMAKE_BUILD_TYPE=Debug -S llvm-project/llvm -Bbuild/llvm/Debug -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DLLVM_ENABLE_PROJECTS="clang;lldb;clang-tools-extra" -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi";
 
 gen-llvm-release:
-	cmake -DCMAKE_BUILD_TYPE=Release -S llvm-project/llvm -Bbuild/llvm/Release -G Ninja -DLLVM_ENABLE_PROJECTS="clang;lldb;clang-tools-extra" -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi";
+	cmake -DCMAKE_BUILD_TYPE=Release -S llvm-project/llvm -Bbuild/llvm/Release -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DLLVM_ENABLE_PROJECTS="clang;lldb;clang-tools-extra" -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi";
 
 clean-llvm:
 	rm -rf build;
@@ -30,7 +30,7 @@ build-tooling-debug:
 	cmake --build build/Tool/Debug --target call-graph --verbose
 
 # lldb
-buiild-lldb-debug:
+build-lldb-debug:
 	if [ ! -d build/llvm/Debug ]; then make gen-llvm-debug;fi
 	cmake --build build/llvm/Debug --target lldb --verbose
 

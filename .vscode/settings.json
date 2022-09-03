@@ -1,12 +1,25 @@
 {
+    "clangd.arguments": [
+        "--background-index",
+        "--compile-commands-dir=build/llvm/Debug",
+        "-j=8",
+        "--all-scopes-completion",
+        "--completion-style=detailed",
+        "--header-insertion=iwyu",
+        "--pch-storage=memory",
+        "--cross-file-rename",
+        "--enable-config",
+        "--fallback-style=WebKit",
+        "--pretty",
+        "--clang-tidy",
+        "--query-driver=/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/bin/c++",
+    ],
     "makefile.extensionOutputFolder": "./build",
-    "C_Cpp.errorSquiggles": "Enabled",
-    "C_Cpp.autoAddFileAssociations": false,
     "search.exclude": {
         "**/build": true
     },
     "[cpp]": {
-        "editor.defaultFormatter": "ms-vscode.cpptools",
+        "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
     },
     "editor.formatOnSave": true,
     "editor.fontFamily": "Consolas, 'Courier New', monospace",

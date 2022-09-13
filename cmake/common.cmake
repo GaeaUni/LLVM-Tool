@@ -10,14 +10,15 @@ if(USE_LLVM_TYPE MATCHES Release)
         ${TOOL_ROOT_PATH}/build/llvm/Release/tools/clang/include
         ${TOOL_ROOT_PATH}/build/llvm/Release/include
     )
-    link_directories(${TOOL_ROOT_PATH}/build/llvm/Release/lib)
+    set(LLVM_PROJECT_PATH ${TOOL_ROOT_PATH}/build/llvm/Release)
 else()
     list(APPEND LLVM_INCLUDE_DIRECTORIES
         ${TOOL_ROOT_PATH}/build/llvm/Debug/tools/clang/include
         ${TOOL_ROOT_PATH}/build/llvm/Debug/include
     )
-    link_directories(${TOOL_ROOT_PATH}/build/llvm/Debug/lib)
+    set(LLVM_PROJECT_PATH ${TOOL_ROOT_PATH}/build/llvm/Debug)
 endif()
+link_directories(${LLVM_PROJECT_PATH}/lib)
 
 list(APPEND COMMAND_FLAGS
     "-fvisibility-inlines-hidden"

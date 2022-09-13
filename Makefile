@@ -3,8 +3,7 @@ bootstrap:
 	brew install cmake
 	brew install pre-commit
 	pre-commit install
-	make gen-tooling-debug
-	make build-tooling-debug
+	make build-lldb-tests-debug
 
 gen-llvm-debug:
 	cmake -DCMAKE_BUILD_TYPE=Debug -S llvm-project/llvm -Bbuild/llvm/Debug -G Ninja -DLLDB_BUILD_FRAMEWORK=1 -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DLLVM_ENABLE_PROJECTS="clang;lldb;clang-tools-extra" -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi";
@@ -37,4 +36,12 @@ build-lldb-debug:
 build-lldb-release:
 	if [ ! -d build/llvm/Debug ]; then make gen-llvm-release;fi
 	cmake --build build/llvm/Release --target lldb --verbose
+
+# tests
+gen-lldb-tests-debug:build-lldb-debug
+	cmake -DCMAKE_BUILD_TYPE=Debug -S packages/lldb-plugin -Bbuild/LLDBPlugin -G Ninja -DCMAKE_EXPORT_COMPILE_COMMANDS=1
+
+build-lldb-tests-debug:
+	if [ ! -d build/LLDBPlugin ]; then make gen-lldb-tests-debug;fi
+	cmake --build build/LLDBPlugin --target LLDBPluginTests
 

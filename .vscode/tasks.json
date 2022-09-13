@@ -20,6 +20,15 @@
             },
             "command": "make build-lldb-debug",
             "problemMatcher": []
+        },
+        {
+            "label": "lldbPluginTestsBuild",
+            "type": "shell",
+            "options": {
+                "cwd": "${workspaceFolder}"
+            },
+            "command": "make build-lldb-tests-debug",
+            "problemMatcher": []
         }
     ]
 }

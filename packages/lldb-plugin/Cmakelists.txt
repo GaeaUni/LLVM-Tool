@@ -1,0 +1,44 @@
+cmake_minimum_required(VERSION 3.1)
+project(LLDBPlugin LANGUAGES CXX)
+enable_testing()
+
+set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_ALLOWED "NO")
+set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGNING_REQUIRED "NO")
+set(CMAKE_XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY "")
+
+find_package(XCTest REQUIRED)
+
+set(ROOT_LLVM ${CMAKE_CURRENT_SOURCE_DIR}/../../llvm-project)
+include(${ROOT_LLVM}/../cmake/common.cmake)
+
+add_library(${PROJECT_NAME}
+    SHARED
+    src/SBAPIPlugin.mm
+    src/SBAPIPlugin.h
+)
+
+find_library(LLDB_PATH LLDB
+    PATHS ${LLVM_PROJECT_PATH}/bin
+    REQUIRED
+)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE
+    ${LLDB_PATH}
+)
+
+set_target_properties(${PROJECT_NAME} PROPERTIES
+  FRAMEWORK TRUE
+  PUBLIC_HEADER src/SBAPIPlugin.h
+)
+
+# XCTest for PROJECT
+message(STATUS "Adding test for ${PROJECT_NAME}")
+xctest_add_bundle(${PROJECT_NAME}Tests ${PROJECT_NAME}
+    ${CMAKE_CURRENT_SOURCE_DIR}/tests/LLDBPluginTests.mm
+)
+
+target_link_libraries(${PROJECT_NAME}Tests PRIVATE
+    ${LLDB_PATH}
+)
+
+xctest_add_test(XCTest.${PROJECT_NAME} ${PROJECT_NAME}Tests)

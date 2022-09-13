@@ -25,6 +25,17 @@
             "program": "${workspaceFolder}/build/llvm/Debug/bin/lldb",
             "args": [],
             "cwd": "${workspaceFolder}"
+        },
+        {
+            "name": "TestLLDBPlugin",
+            "type": "lldb",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "program": "/Applications/Xcode.app/Contents/Developer/usr/bin/xctest",
+            "args": [
+                "${workspaceFolder}/build/LLDBPlugin/LLDBPluginTests.xctest"
+            ],
+            "preLaunchTask": "lldbPluginTestsBuild",
         }
     ]
 }

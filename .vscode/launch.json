@@ -33,7 +33,7 @@
             "cwd": "${workspaceFolder}",
             "program": "/Applications/Xcode.app/Contents/Developer/usr/bin/xctest",
             "args": [
-                "${workspaceFolder}/build/LLDBPlugin/LLDBPluginTests.xctest"
+                "${workspaceFolder}/build/LLDBPlugin/LLDBPluginTests.xctest",
             ],
             "preLaunchTask": "lldbPluginTestsBuild",
         }

@@ -18,9 +18,7 @@
     "search.exclude": {
         "**/build": true
     },
-    "[cpp]": {
-        "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
-    },
+    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
     "editor.formatOnSave": true,
     "editor.fontFamily": "Consolas, 'Courier New', monospace",
     "editor.fontSize": 14,

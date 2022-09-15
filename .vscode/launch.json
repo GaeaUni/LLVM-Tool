@@ -36,6 +36,15 @@
                 "${workspaceFolder}/build/LLDBPlugin/LLDBPluginTests.xctest",
             ],
             "preLaunchTask": "lldbPluginTestsBuild",
+        },
+        {
+            "name": "LaunchPython",
+            "type": "python",
+            "request": "launch",
+            "program": "${workspaceFolder}/packages/lldb-plugin/script/main.py",
+            "env": {
+                "PYTHONPATH" : "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Resources/Python"
+            }
         }
     ]
 }

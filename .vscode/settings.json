@@ -25,7 +25,7 @@
     "cmake.sourceDirectory": "${workspaceFolder}/llvm-project/llvm",
     "cmake.buildDirectory": "${workspaceFolder}/build/llvm/Default",
     "makefile.configurationCachePath": "build/configurationCache.log",
-    "python.defaultInterpreterPath": "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/3.8/bin/python3",
+    "python.defaultInterpreterPath": "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/Current/bin/python3",
     "python.autoComplete.extraPaths": [
         "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Resources/Python"
     ],

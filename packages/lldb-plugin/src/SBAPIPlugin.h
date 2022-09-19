@@ -8,14 +8,14 @@
 #import <LLDB/lldb.h>
 
 #import <string>
+#include <utility>
 
 namespace kk {
 class FindAddressCommand : public lldb::SBCommandPluginInterface {
  public:
-    FindAddressCommand(const std::string &name) : name(name) {
+    FindAddressCommand(std::string name) : name(std::move(name)) {
     }
-    bool DoExecute(lldb::SBDebugger /*debugger*/, char ** /*command*/,
-                   lldb::SBCommandReturnObject & /*result*/) override;
+    bool DoExecute(lldb::SBDebugger /*debugger*/, char** /*command*/, lldb::SBCommandReturnObject& /*result*/) override;
 
  private:
     std::string name;

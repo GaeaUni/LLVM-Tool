@@ -15,7 +15,7 @@
 #include "LLDB/SBTarget.h"
 
 namespace kk {
-bool isStackAddress(lldb::SBAddress address, lldb::SBTarget target) {
+bool isStackAddress(const lldb::SBAddress &address, lldb::SBTarget target) {
     auto thread = target.GetProcess().GetSelectedThread();
     auto frameCount = thread.GetNumFrames();
     for (int i = 0; i < frameCount; i++) {

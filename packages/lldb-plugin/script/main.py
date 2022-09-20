@@ -2,7 +2,6 @@ import pdb
 import sys
 # import lldb
 
-
 def your_first_command(debugger, command, result, internal_dict):
     import pydevd_pycharm
     print("sys.path: %s" % sys.path)

@@ -56,7 +56,7 @@ using namespace lldb;
 
     lldb::SBCommandInterpreter interpreter = self.debugger.GetCommandInterpreter();
     SBCommandReturnObject result;
-    interpreter.HandleCommand("po m", result);
+    interpreter.HandleCommand("po p", result);
     auto cmd = string_format("kk find %s", result.GetOutput());
     auto loopupCmd = string_format("image loo -a %s", result.GetOutput());
     interpreter.HandleCommand(loopupCmd.c_str(), result);

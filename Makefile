@@ -43,5 +43,5 @@ gen-lldb-tests-debug:build-lldb-debug
 
 build-lldb-tests-debug:
 	if [ ! -d build/LLDBPlugin ]; then make gen-lldb-tests-debug;fi
-	cmake --build build/LLDBPlugin --target LLDBPluginTests
+	cmake --build build/LLDBPlugin --target LLDBPluginTests --verbose
 

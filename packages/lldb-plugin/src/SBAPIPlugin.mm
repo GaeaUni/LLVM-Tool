@@ -6,13 +6,19 @@
 //
 
 #import "SBAPIPlugin.h"
+#include <unistd.h>
 #include <cctype>
 #include <cstdlib>
+#include <fstream>
 #include <iostream>
-#include <sstream>
+#include <regex>
 #include <string>
 #include "LLDB/SBAddress.h"
+#include "LLDB/SBDefines.h"
+#include "LLDB/SBExpressionOptions.h"
+#include "LLDB/SBStream.h"
 #include "LLDB/SBTarget.h"
+#include "LLDB/lldb-enumerations.h"
 
 namespace kk {
 bool isStackAddress(const lldb::SBAddress &address, lldb::SBTarget target) {
@@ -27,6 +33,36 @@ bool isStackAddress(const lldb::SBAddress &address, lldb::SBTarget target) {
         }
     }
     return false;
+}
+
+std::string GetInjectedCode(const std::string &arg) {
+    std::string folder = getcwd(nullptr, 0);
+    folder.append("/packages/lldb-plugin/src/injected/GetHeapAddress.mm");
+    std::ifstream ifs(folder.c_str());
+    std::string content((std::istreambuf_iterator<char>(ifs)), (std::istreambuf_iterator<char>()));
+    auto start = content.find('{');
+    auto end = content.find('}');
+    content = content.substr(start + 1, end - start - 1);
+    content = std::regex_replace(content, std::regex(R"(\barg0\b)"), arg);
+    std::cout << "content = " << content << std::endl;
+    return content;
+}
+
+std::string getHeapAddressInfo(const lldb::SBAddress &address, lldb::SBTarget target) {
+    lldb::SBExpressionOptions options;
+    options.SetLanguage(lldb::eLanguageTypeObjC_plus_plus);
+    options.SetGenerateDebugInfo(true);
+    options.SetAutoApplyFixIts(true);
+
+    auto code = GetInjectedCode(std::to_string(address.GetLoadAddress(target)));
+    auto value = target.EvaluateExpression(code.c_str(), options);
+    if (value.GetError().Success()) {
+        std::cout << "value = " << value.GetValue() << std::endl;
+        return value.GetValue();
+    } else {
+        std::cout << "error = " << value.GetError().GetCString() << std::endl;
+        return "";
+    }
 }
 
 bool FindAddressCommand::DoExecute(lldb::SBDebugger debugger, char **command, lldb::SBCommandReturnObject &result) {
@@ -78,6 +114,7 @@ bool FindAddressCommand::DoExecute(lldb::SBDebugger debugger, char **command, ll
         std::cout << "stack" << std::endl;
     }
     // 3.扫描heap
+    getHeapAddressInfo(sbAddr, target);
     return true;
 }
 }  // namespace kk

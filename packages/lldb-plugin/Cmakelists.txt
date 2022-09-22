@@ -31,6 +31,8 @@ set_target_properties(${PROJECT_NAME} PROPERTIES
   PUBLIC_HEADER src/SBAPIPlugin.h
 )
 
+#Injectable library
+
 add_library(${PROJECT_NAME}Injected
     STATIC
     src/injected/GetHeapAddress.mm

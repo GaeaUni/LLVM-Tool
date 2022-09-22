@@ -22,9 +22,8 @@
     "editor.formatOnSave": true,
     "editor.fontFamily": "Consolas, 'Courier New', monospace",
     "editor.fontSize": 14,
-    "cmake.sourceDirectory": "${workspaceFolder}/llvm-project/llvm",
-    "cmake.buildDirectory": "${workspaceFolder}/build/llvm/Default",
-    "makefile.configurationCachePath": "build/configurationCache.log",
+    "cmake.sourceDirectory": "${workspaceFolder}/packages/lldb-plugin",
+    "cmake.buildDirectory": "${workspaceFolder}/build/LLDBPlugin",
     "python.defaultInterpreterPath": "/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/Current/bin/python3",
     "python.autoComplete.extraPaths": [
         "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Resources/Python"

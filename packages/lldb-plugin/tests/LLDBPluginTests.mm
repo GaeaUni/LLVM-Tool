@@ -39,6 +39,11 @@ using namespace lldb;
     self.target = self.debugger.CreateTargetWithFileAndArch("/Volumes/T7/ios/SBAPIPlugin/TestExec/a.out", "arm64");
     self.target.BreakpointCreateByLocation("test.c", 23);
     PluginInitialize(self.debugger);
+    auto path = lldb::SBHostOS::GetLLDBPath(lldb::ePathTypeSupportExecutableDir);
+    auto dir = path.GetDirectory();
+    auto filename = path.GetFilename();
+    auto exist = path.Exists();
+    std::cout << "path = " << exist << std::endl;
 }
 
 - (void)tearDown {

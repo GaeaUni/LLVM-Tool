@@ -1,14 +1,22 @@
 import pdb
 import sys
 # import lldb
+import ptvsd
+
+
 
 def your_first_command(debugger, command, result, internal_dict):
-    import pydevd_pycharm
-    print("sys.path: %s" % sys.path)
-    print("0000")
-    pydevd_pycharm.settrace('localhost', port=12345, stdoutToServer=True, stderrToServer=True)
-    print("1111")
-    print("your_first_command!")
+    print("your_first_command")
+    host = "127.0.0.1" # remote host ip
+    port = 12345    # remote host valid port
+    ptvsd.enable_attach(address=(host, port), redirect_output=True)
+    ptvsd.wait_for_attach()
+    # import pydevd_pycharm
+    # print("sys.path: %s" % sys.path)
+    # print("0000")
+    # pydevd_pycharm.settrace('localhost', port=12345, stdoutToServer=True, stderrToServer=True)
+    # print("1111")
+    # print("your_first_command!")
     # debugger = lldb.SBDebugger.Create()
     # debugger.SetAsync(False)
     # target = debugger.CreateTargetWithFileAndArch(None, lldb.LLDB_ARCH_DEFAULT)

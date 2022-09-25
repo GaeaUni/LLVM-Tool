@@ -27,6 +27,17 @@
             "cwd": "${workspaceFolder}"
         },
         {
+            "type": "lldb",
+            "request": "attach",
+            "name": "AttachDebugServer",
+            // "pid": "${command:pickMyProcess}"
+            "program": "${workspaceFolder}/build/llvm/Debug/bin/LLDB.framework/Resources/debugserver",
+            // "initCommands": [
+            //     "file ${workspaceFolder}/build/llvm/Debug/bin/LLDB.framework/Resources/debugserver",
+            //     "process attach --waitfor"
+            // ]
+        },
+        {
             "name": "TestLLDBPlugin",
             "type": "lldb",
             "request": "launch",
@@ -45,6 +56,13 @@
             "env": {
                 "PYTHONPATH" : "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Resources/Python"
             }
+        },
+        {
+            "name": "Python: Remote Debug",
+            "type": "python",
+            "request": "attach",
+            "port": 12345,
+            "host": "127.0.0.1",
         }
     ]
 }

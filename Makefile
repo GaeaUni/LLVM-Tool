@@ -4,6 +4,7 @@ bootstrap:
 	brew install pre-commit
 	pre-commit install
 	make build-lldb-tests-debug
+	/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/Current/bin/python3 -m pip install --upgrade ptvsd
 
 gen-llvm-debug:
 	cmake -DCMAKE_BUILD_TYPE=Debug -S llvm-project/llvm -Bbuild/llvm/Debug -G Ninja -DLLDB_BUILD_FRAMEWORK=1 -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DLLVM_ENABLE_PROJECTS="clang;lldb;clang-tools-extra" -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi";
@@ -31,11 +32,11 @@ build-tooling-debug:
 # lldb
 build-lldb-debug:
 	if [ ! -d build/llvm/Debug ]; then make gen-llvm-debug;fi
-	cmake --build build/llvm/Debug --target lldb --verbose
+	cmake --build build/llvm/Debug --target check-lldb --verbose
 
 build-lldb-release:
 	if [ ! -d build/llvm/Debug ]; then make gen-llvm-release;fi
-	cmake --build build/llvm/Release --target lldb --verbose
+	cmake --build build/llvm/Release --target check-lldb --verbose
 
 # tests
 gen-lldb-tests-debug:build-lldb-debug

@@ -9,6 +9,8 @@
 #import <XCTest/XCTest.h>
 #include <iostream>
 #include <string>
+#include "LLDB/SBBreakpoint.h"
+#include "LLDB/SBDefines.h"
 
 template <typename... Args>
 auto string_format(const std::string& format, Args... args) -> std::string {
@@ -58,7 +60,6 @@ using namespace lldb;
     lldb::SBThread thread = self.process.GetThreadAtIndex(0);
     auto name = thread.GetFrameAtIndex(0).GetFunctionName();
     NSLog(@"name = %s", name);
-
     lldb::SBCommandInterpreter interpreter = self.debugger.GetCommandInterpreter();
     SBCommandReturnObject result;
     interpreter.HandleCommand("po p", result);
@@ -67,6 +68,7 @@ using namespace lldb;
     interpreter.HandleCommand(loopupCmd.c_str(), result);
     std::cout << result.GetOutput() << std::endl;
     interpreter.HandleCommand(cmd.c_str(), result);
+
     std::cout << result.GetOutput() << std::endl;
 }
 

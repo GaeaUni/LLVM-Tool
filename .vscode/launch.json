@@ -23,7 +23,13 @@
             "name": "lldbDebug",
             "preLaunchTask": "lldbDebugBuild",
             "program": "${workspaceFolder}/build/llvm/Debug/bin/lldb",
-            "args": [],
+            "args": [
+                "-f",
+                "/Users/zhouliang/Library/Developer/Xcode/DerivedData/TestBinaryDemo-cheimmmnvbdocpaagswheyrewjnu/Build/Products/Debug/TestBinaryDemo"
+            ],
+            "env": {
+                "PYTHONPATH" : "/Users/zhouliang/Library/Python/3.9/lib/python/site-packages"
+            },
             "cwd": "${workspaceFolder}"
         },
         {
@@ -52,16 +58,21 @@
             "name": "LaunchPython",
             "type": "python",
             "request": "launch",
-            "program": "${workspaceFolder}/packages/lldb-plugin/script/main.py",
+            "program": "/Volumes/T7/company/LLVM-Tool/packages/lldb-plugin/script/main.py",
             "env": {
-                "PYTHONPATH" : "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Resources/Python"
-            }
+                "PYTHONPATH" : "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Resources/Python:/Volumes/T7/company/LLVM-Tool/llvm-project/lldb/packages/Python:/Volumes/T7/company/LLVM-Tool/llvm-project/lldb/third_party/Python/module/unittest2:/Volumes/T7/company/LLVM-Tool/llvm-project/lldb/scripts:/Volumes/T7/company/LLVM-Tool/llvm-project/lldb/test/API"
+            },
+            "args": [
+                "-t",
+                "/Volumes/T7/company/LLVM-Tool/llvm-project/lldb/test/API/python_api/event"
+            ],
+            "cwd": "/Volumes/T7/company/LLVM-Tool/llvm-project/lldb/packages/Python/lldbsuite/test"
         },
         {
             "name": "Python: Remote Debug",
             "type": "python",
             "request": "attach",
-            "port": 12345,
+            "port": 12340,
             "host": "127.0.0.1",
         }
     ]

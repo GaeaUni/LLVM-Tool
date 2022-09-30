@@ -18,7 +18,19 @@
     "search.exclude": {
         "**/build": true
     },
-    "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd",
+    "[objective-cpp]": {
+        "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+    },
+    "[objective-c]": {
+        "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+    },
+    "[cpp]": {
+        "editor.defaultFormatter": "llvm-vs-code-extensions.vscode-clangd"
+    },
+    "[python]": {
+        "editor.wordBasedSuggestions": false,
+        "editor.defaultFormatter": "ms-python.python"
+    },
     "editor.formatOnSave": true,
     "editor.fontFamily": "Consolas, 'Courier New', monospace",
     "editor.fontSize": 14,
@@ -30,5 +42,5 @@
     ],
     "python.analysis.extraPaths": [
         "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Resources/Python"
-    ]
+    ],
 }

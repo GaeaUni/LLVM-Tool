@@ -12,8 +12,8 @@
             "program": "${workspaceFolder}/packages/call-graph/bin/call-graph",
             "args": [
                 "-p",
-                "/Volumes/T7/company/LLVM-Tool/packages/call-graph/tmp/compile_commands.json",
-                "/Volumes/T7/company/LLVM-Tool/packages/call-graph/tmp/diff.json"
+                "${workspaceFolder}/packages/call-graph/tmp/compile_commands.json",
+                "${workspaceFolder}/packages/call-graph/tmp/diff.json"
             ],
             "cwd": "${workspaceFolder}"
         },
@@ -61,15 +61,15 @@
             "name": "LaunchPython",
             "type": "python",
             "request": "launch",
-            "program": "/Volumes/T7/company/LLVM-Tool/packages/lldb-plugin/script/main.py",
+            "program": "packages/lldb-plugin/script/main.py",
             "env": {
-                "PYTHONPATH" : "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Resources/Python:/Volumes/T7/company/LLVM-Tool/llvm-project/lldb/packages/Python:/Volumes/T7/company/LLVM-Tool/llvm-project/lldb/third_party/Python/module/unittest2:/Volumes/T7/company/LLVM-Tool/llvm-project/lldb/scripts:/Volumes/T7/company/LLVM-Tool/llvm-project/lldb/test/API"
+                "PYTHONPATH" : "/Applications/Xcode.app/Contents/SharedFrameworks/LLDB.framework/Resources/Python:${workspaceFolder}/llvm-project/lldb/packages/Python:${workspaceFolder}/llvm-project/lldb/third_party/Python/module/unittest2:${workspaceFolder}/llvm-project/lldb/scripts:${workspaceFolder}/llvm-project/lldb/test/API"
             },
             "args": [
                 "-t",
-                "/Volumes/T7/company/LLVM-Tool/llvm-project/lldb/test/API/python_api/event"
+                "llvm-project/lldb/test/API/python_api/event"
             ],
-            "cwd": "/Volumes/T7/company/LLVM-Tool/llvm-project/lldb/packages/Python/lldbsuite/test"
+            "cwd": "llvm-project/lldb/packages/Python/lldbsuite/test"
         },
         {
             "name": "Python: Remote Debug",

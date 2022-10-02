@@ -25,11 +25,14 @@
             "program": "${workspaceFolder}/build/llvm/Debug/bin/lldb",
             "args": [
                 "-f",
-                "/Users/zhouliang/Library/Developer/Xcode/DerivedData/TestBinaryDemo-cheimmmnvbdocpaagswheyrewjnu/Build/Products/Debug/TestBinaryDemo"
+                "/Users/zhouliang/Library/Developer/Xcode/DerivedData/TestBinaryDemo-cheimmmnvbdocpaagswheyrewjnu/Build/Products/Debug/TestBinaryDemo",
+                "-o",
+                "b main",
+                "-o",
+                "command script import ${workspaceFolder}/packages/lldb-plugin/script/main.py",
+                "-o",
+                "process launch",
             ],
-            "env": {
-                "PYTHONPATH" : "/Users/zhouliang/Library/Python/3.9/lib/python/site-packages"
-            },
             "cwd": "${workspaceFolder}"
         },
         {

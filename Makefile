@@ -5,10 +5,18 @@ bootstrap:
 	/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/Current/bin/python3 -m pip install --upgrade ptvsd
 
 gen-llvm-debug:
-	cmake -DCMAKE_BUILD_TYPE=Debug -S llvm-project/llvm -Bbuild/llvm/Debug -G Ninja -DPython3_EXECUTABLE='/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/Current/bin/python3' -DLLDB_ENABLE_PYTHON=1 -DLLDB_BUILD_FRAMEWORK=1 -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DLLVM_ENABLE_PROJECTS="clang;lldb;clang-tools-extra" -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi";
+	cmake -DCMAKE_BUILD_TYPE=Debug -S llvm-project/llvm -Bbuild/llvm/Debug -G Xcode -DPython3_EXECUTABLE='/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/Current/bin/python3' -DLLDB_ENABLE_PYTHON=1 -DLLDB_BUILD_FRAMEWORK=1 -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DLLVM_ENABLE_PROJECTS="clang;lldb;clang-tools-extra" -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi";
 
 gen-llvm-release:
 	cmake -DCMAKE_BUILD_TYPE=Release -S llvm-project/llvm -Bbuild/llvm/Release -G Ninja -DPython3_EXECUTABLE='/Applications/Xcode.app/Contents/Developer/Library/Frameworks/Python3.framework/Versions/Current/bin/python3' -DLLDB_ENABLE_PYTHON=1 -DLLDB_BUILD_FRAMEWORK=1 -DCMAKE_EXPORT_COMPILE_COMMANDS=1 -DLLVM_ENABLE_PROJECTS="clang;lldb;clang-tools-extra" -DLLVM_ENABLE_RUNTIMES="libcxx;libcxxabi";
+
+gen-cxx-ios-release:
+	rm -rf build/cxx
+	# rm -rf build/cxxabi
+	cmake -DCMAKE_BUILD_TYPE=Release -S llvm-project/libcxx -B build/cxx -G Ninja -DCMAKE_TOOLCHAIN_FILE=../llvm/cmake/platforms/iOS.cmake -DLIBCXX_INCLUDE_BENCHMARKS=OFF
+	# cmake -DCMAKE_BUILD_TYPE=Release -S llvm-project/libcxxabi -B build/cxxabi -G Ninja -DCMAKE_TOOLCHAIN_FILE=../llvm/cmake/platforms/iOS.cmake -DLIBCXX_INCLUDE_BENCHMARKS=OFF
+	cmake --build build/cxx --target cxx_static --verbose
+	# cmake --build build/cxxabi --target cxxabi_static --verbose
 
 clean-llvm:
 	rm -rf build;

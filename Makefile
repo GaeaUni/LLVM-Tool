@@ -12,11 +12,13 @@ gen-llvm-release:
 
 gen-cxx-ios-release:
 	rm -rf build/cxx
-	# rm -rf build/cxxabi
 	cmake -DCMAKE_BUILD_TYPE=Release -S llvm-project/libcxx -B build/cxx -G Ninja -DCMAKE_TOOLCHAIN_FILE=../llvm/cmake/platforms/iOS.cmake -DLIBCXX_INCLUDE_BENCHMARKS=OFF
-	# cmake -DCMAKE_BUILD_TYPE=Release -S llvm-project/libcxxabi -B build/cxxabi -G Ninja -DCMAKE_TOOLCHAIN_FILE=../llvm/cmake/platforms/iOS.cmake -DLIBCXX_INCLUDE_BENCHMARKS=OFF
 	cmake --build build/cxx --target cxx_static --verbose
-	# cmake --build build/cxxabi --target cxxabi_static --verbose
+
+gen-cxxabi-ios-release:
+	rm -rf build/cxxabi
+	cmake -DCMAKE_BUILD_TYPE=Release -S llvm-project/libcxxabi -B build/cxxabi -G Ninja -DCMAKE_TOOLCHAIN_FILE=../llvm/cmake/platforms/iOS.cmake -DLIBCXX_INCLUDE_BENCHMARKS=OFF
+	cmake --build build/cxxabi --target cxxabi_static --verbose
 
 clean-llvm:
 	rm -rf build;
